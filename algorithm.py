@@ -2,6 +2,7 @@ import client
 import restaurant
 import worker
 import random
+from operator import attrgetter
 
 
 class Algorithm:
@@ -24,3 +25,11 @@ class Algorithm:
 
         for i in range(workers_number):
             self.workers.append(worker.Worker(self.cl, self.rest))
+
+    def cycle(self):
+        for w in self.workers:
+            w.do_work()
+        self.ranking()
+
+    def ranking(self):
+        self.workers.sort(key=attrgetter('distance_sum'),reverse=True)

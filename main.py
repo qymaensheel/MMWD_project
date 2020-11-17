@@ -5,5 +5,5 @@ import algorithm
 import random
 
 alg = algorithm.Algorithm(20,10,6)
-
+alg.cycle()
 print("r")
