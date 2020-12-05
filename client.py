@@ -1,5 +1,6 @@
 import random
 
+
 class Client:
     occupied_ID=[]
     def __init__(self, lower_needs, upper_needs):
