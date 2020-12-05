@@ -32,12 +32,20 @@ class Algorithm:
             w.do_work()
         self.ranking()
         self.death()
+        self.give_birth()
+
 
     def ranking(self):
         self.workers.sort(key=attrgetter('quality'), reverse=False)
 
     def death(self):
         self.workers=self.workers[0:-(self.workers_number//3)]
+
+    def give_birth(self):
+        random.shuffle(self.workers)
+        for i in range(0,len(self.workers),2):
+            print (i)
+
 
 
 
