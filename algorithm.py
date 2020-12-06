@@ -11,6 +11,8 @@ class Algorithm:
         self.rest = []
         self.workers = []
         self.workers_number = workers_number
+        self.clients_number = clients_number
+        self.restaurants_number = restaurants_number
 
         for i in range(restaurants_number):
             self.rest.append(restaurant.Restaurant(5, 20, 5, 10))
@@ -34,18 +36,25 @@ class Algorithm:
         self.death()
         self.give_birth()
 
-
     def ranking(self):
         self.workers.sort(key=attrgetter('quality'), reverse=False)
+        # for w in self.workers:
+        #     print(w.ID)
 
     def death(self):
-        self.workers=self.workers[0:-(self.workers_number//3)]
+        for w in self.workers[-(self.workers_number // 3):]:  # raczej nie zadziała w kazdym przypadku
+            w.occupied_ID.remove(w.ID)
+        self.workers = self.workers[0:-(self.workers_number // 3)]
 
-    def give_birth(self):
+    def give_birth(self):  # repopulating workers
         random.shuffle(self.workers)
-        for i in range(0,len(self.workers),2):
-            print (i)
-
-
-
-
+        for i in range(0, len(self.workers), 2):
+            print("pair ", i)
+            conns = []
+            for c in self.workers[i].connections:
+                if c[0] <= self.clients_number / 2:
+                    conns.append(c)
+            for c in self.workers[i + 1].connections:
+                if c[0] > self.clients_number / 2:
+                    conns.append(c)
+            self.workers.append(worker.Worker(self.cl, self.rest, conns))

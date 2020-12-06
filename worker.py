@@ -7,7 +7,7 @@ from operator import itemgetter
 class Worker:
     occupied_ID = []
 
-    def __init__(self, cl_list, rest_list):
+    def __init__(self, cl_list, rest_list, conns_list=[]):  # added 3rd parameter as optional
         if not self.occupied_ID:
             self.ID = 1
         else:
@@ -15,7 +15,7 @@ class Worker:
         self.occupied_ID.append(self.ID)
         self.clients_list = cl_list
         self.restaurants_list = rest_list
-        self.connections = []
+        self.connections = conns_list
         self.is_old = False
         self.cost_sum = 0
         self.distance_sum = 0
@@ -34,12 +34,12 @@ class Worker:
 
                 if r in c.restaurants:
                     d = c.restaurants[r]
-                    self.connections.append(list([c.ID, r.ID, d, n, n*r.cost]))
+                    self.connections.append(list([c.ID, r.ID, d, n, n * r.cost]))
                     client_needs -= n
 
         for i in self.connections:
             self.cost_sum += i[4]
             self.distance_sum += i[2]
-        self.quality = self.cost_sum+self.distance_sum
+        self.quality = self.cost_sum + self.distance_sum
 
         self.connections.sort(key=itemgetter(0), reverse=False)
