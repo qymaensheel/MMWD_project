@@ -43,11 +43,11 @@ class Algorithm:
         #     print(w.ID)
 
     def death(self):
-        for w in self.workers[-(self.workers_number // 3):]:  # raczej nie zadziała w kazdym przypadku
+        for w in self.workers[-(self.workers_number // 3):]:
             w.occupied_ID.remove(w.ID)
         self.workers = self.workers[0:-(self.workers_number // 3)]
 
-    def give_birth(self):  # repopulating workers
+    def give_birth(self):  # repopulating workers # TODO: prawdopodobieństwo zostania rodzicem, operatory krzyżowania i mutacji
         random.shuffle(self.workers)
         for i in range(0, len(self.workers), 2):
             print("pair ", i)

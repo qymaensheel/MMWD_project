@@ -42,6 +42,6 @@ class Worker:
         for i in self.connections:
             self.cost_sum += i[4]
             self.distance_sum += i[2]
-        self.quality = self.cost_sum + self.distance_sum
+        self.quality = self.cost_sum + self.distance_sum  # TODO: parametr alfa
 
         self.connections.sort(key=itemgetter(0), reverse=False)
