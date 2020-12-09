@@ -6,6 +6,7 @@ from operator import itemgetter
 
 class Worker:
     occupied_ID = []
+    highest_ID_given = 0
 
     def __init__(self, cl_list, rest_list, conns_list=[]):  # added 3rd parameter as optional
         if not self.occupied_ID:
@@ -16,7 +17,6 @@ class Worker:
         self.clients_list = cl_list
         self.restaurants_list = rest_list
         self.connections = conns_list
-        self.is_old = False
         self.cost_sum = 0
         self.distance_sum = 0
         self.quality = 0
@@ -37,6 +37,7 @@ class Worker:
                     self.connections.append(list([c.ID, r.ID, d, n, n * r.cost]))
                     client_needs -= n
 
+    def count(self):
         for i in self.connections:
             self.cost_sum += i[4]
             self.distance_sum += i[2]
