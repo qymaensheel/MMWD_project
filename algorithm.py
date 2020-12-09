@@ -32,6 +32,7 @@ class Algorithm:
     def cycle(self):
         for w in self.workers:
             w.do_work()
+            w.count()
         self.ranking()
         self.death()
         self.give_birth()
@@ -58,3 +59,4 @@ class Algorithm:
                 if c[0] > self.clients_number / 2:
                     conns.append(c)
             self.workers.append(worker.Worker(self.cl, self.rest, conns))
+            self.workers[-1].count()
