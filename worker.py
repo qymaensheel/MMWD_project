@@ -13,6 +13,7 @@ class Worker:
             self.ID = 1
         else:
             self.ID = self.occupied_ID[-1] + 1
+        # self.ID = self.highest_ID_given = self.highest_ID_given + 1
         self.occupied_ID.append(self.ID)
         self.clients_list = cl_list
         self.restaurants_list = rest_list
