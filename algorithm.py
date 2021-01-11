@@ -6,13 +6,17 @@ from operator import attrgetter
 
 
 class Algorithm:
-    def __init__(self, clients_number, restaurants_number, workers_number):
+    def __init__(self, clients_number, restaurants_number, workers_number, cycles_number):
         self.cl = []
         self.rest = []
         self.workers = []
+        self.cycles = cycles_number
         self.workers_number = workers_number
         self.clients_number = clients_number
         self.restaurants_number = restaurants_number
+        self.probability = []
+        self.dupa = []
+        self.worst = None
 
         for i in range(restaurants_number):
             self.rest.append(restaurant.Restaurant(5, 20, 5, 10))
@@ -29,32 +33,75 @@ class Algorithm:
         for i in range(workers_number):
             self.workers.append(worker.Worker(self.cl, self.rest))
 
-    def cycle(self):
         for w in self.workers:
             w.do_work()
+
+    def cycle(self):
+        for i in range(self.cycles):
+            self.ranking()
+            self.death()
+            self.probability_birth()
+            self.give_birth()
         self.ranking()
-        self.death()
-        self.give_birth()
 
     def ranking(self):
         self.workers.sort(key=attrgetter('quality'), reverse=False)
+
+    def probability_birth(self):
+        quality_sum = 0
+        self.probability = []
+        for i in self.workers:
+            quality_sum = quality_sum + i.quality
+        for i in self.workers:
+            self.probability.append(quality_sum-i.quality/quality_sum*100)
+
+
         # for w in self.workers:
         #     print(w.ID)
 
     def death(self):
-        for w in self.workers[-(self.workers_number // 3):]:
-            w.occupied_ID.remove(w.ID)
-        self.workers = self.workers[0:-(self.workers_number // 3)]
+        del self.workers[-(self.workers_number // 3):]
 
-    def give_birth(self):  # repopulating workers # TODO: prawdopodobieństwo zostania rodzicem, operatory krzyżowania i mutacji
-        random.shuffle(self.workers)
-        for i in range(0, len(self.workers), 2):
-            print("pair ", i)
+    def give_birth(self):  # repopulating workers
+        pairs = []
+        for i in range(len(self.workers)//2):
+            one_pair = []
+            while len(one_pair)<2:
+                one_worker = random.choices(self.workers, self.probability, k=1)[0]
+                if (one_worker not in one_pair):
+                    one_pair.append(one_worker)
+            pairs.append(one_pair)
+
+        for i in (pairs):
             conns = []
-            for c in self.workers[i].connections:
-                if c[0] <= self.clients_number / 2:
+            random_conns = random.sample(range(1,self.clients_number+1),self.clients_number//2)
+            mutation_con = random_conns[-1]
+            random_conns.remove(random_conns[-1])
+            self.dupa.append(i[0].ID)
+            self.dupa.append(i[1].ID)
+
+            mutation_needs = self.cl[mutation_con-1].needs
+            for r in self.rest:
+                if mutation_needs == 0:
+                    break
+                if r == self.rest[-1]:
+                    n = mutation_needs
+                else:
+                    n = random.randint(0, mutation_needs)
+
+                if r in self.cl[mutation_con-1].restaurants and n!=0:
+                    d = self.cl[mutation_con-1].restaurants[r]
+                    conns.append(list([self.cl[mutation_con-1].ID, r.ID, d, n, n * r.cost]))
+                    mutation_needs -= n
+
+
+            for c in i[0].connections:
+                if c[0] in random_conns:
                     conns.append(c)
-            for c in self.workers[i + 1].connections:
-                if c[0] > self.clients_number / 2:
+            for c in i[1].connections:
+                if c[0] not in random_conns and c[0]!=mutation_con:
                     conns.append(c)
-            self.workers.append(worker.Worker(self.cl, self.rest, conns))
+            new_worker = worker.Worker(self.cl, self.rest, conns)
+            new_worker.count()
+            self.workers.append(new_worker)
+
