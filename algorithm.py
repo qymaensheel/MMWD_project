@@ -15,8 +15,7 @@ class Algorithm:
         self.clients_number = clients_number
         self.restaurants_number = restaurants_number
         self.probability = []
-        self.dupa = []
-        self.worst = None
+        self.worst = []
 
         for i in range(restaurants_number):
             self.rest.append(restaurant.Restaurant(5, 20, 5, 10))
@@ -42,6 +41,7 @@ class Algorithm:
             self.death()
             self.probability_birth()
             self.give_birth()
+            self.worst.append(self.workers[-1].quality)
         self.ranking()
 
     def ranking(self):
@@ -77,8 +77,6 @@ class Algorithm:
             random_conns = random.sample(range(1,self.clients_number+1),self.clients_number//2)
             mutation_con = random_conns[-1]
             random_conns.remove(random_conns[-1])
-            self.dupa.append(i[0].ID)
-            self.dupa.append(i[1].ID)
 
             mutation_needs = self.cl[mutation_con-1].needs
             for r in self.rest:
