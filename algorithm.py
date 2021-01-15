@@ -29,12 +29,15 @@ class Algorithm:
                     r.clients[c] = distance
                     c.restaurants[r] = distance
 
-    def genetic_alg(self, cycles, workers_number):
+    def generate_workers(self, workers_number):
+        self.workers = []
         self.workers_number = workers_number
         for i in range(self.workers_number):
             self.workers.append(worker.Worker(self.cl, self.rest))
         for w in self.workers:
             w.do_work()
+
+    def genetic_alg(self, cycles):
         for i in range(cycles):
             self.ranking()
             self.death()
