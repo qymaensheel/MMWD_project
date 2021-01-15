@@ -13,7 +13,6 @@ class Worker:
             self.ID = 1
         else:
             self.ID = self.occupied_ID[-1] + 1
-        # self.ID = self.highest_ID_given = self.highest_ID_given + 1
         self.occupied_ID.append(self.ID)
         self.clients_list = cl_list.copy()
         self.restaurants_list = rest_list.copy()
@@ -41,6 +40,7 @@ class Worker:
                     self.connections.append(list([c.ID, r.ID, d, n, n * r.cost]))
                     client_needs -= n
         self.count()
+
 
     def count(self):
         self.cost_sum = 0
