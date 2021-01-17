@@ -18,4 +18,5 @@ class Restaurant:
             self.occupied_ID.append(self.ID)
             self.max_distance = random.randint(lower_distance, upper_distance)
             self.cost = random.randint(lower_cost, upper_cost)
-            self.clients = dict()
+
+        self.clients = dict()

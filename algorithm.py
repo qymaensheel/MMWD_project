@@ -19,7 +19,7 @@ class Algorithm:
         self.workers_number = 0
         if not isDataProvided:
             for i in range(restaurants_number):
-                self.rest.append(restaurant.Restaurant(5, 20, 5, 10))
+                self.rest.append(restaurant.Restaurant(lower_distance=5, upper_distance=20, lower_cost=5, upper_cost=10))
             for i in range(clients_number):
                 self.cl.append(client.Client(1, 5))
 
@@ -47,6 +47,13 @@ class Algorithm:
             for c in clientsTable:
                 self.cl.append(client.Client(c[0], c[1], True))
             clientsFile.close()
+
+            for r in self.rest:
+                for c in self.cl:
+                    distance = random.randint(1, 20)
+                    if distance <= r.max_distance:
+                        r.clients[c] = distance
+                        c.restaurants[r] = distance
 
     def generate_workers(self, workers_number):
         self.workers = []
