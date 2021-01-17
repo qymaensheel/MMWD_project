@@ -68,40 +68,14 @@ class Algorithm:
             distsTable = []
             for d in distsString:
                 l = list(map(int, d.split("\t")))
-                print(len(l))
                 distsTable.append(l)
-            for d in distsTable:
-                print(d)
             distsFile.close()
-            # [c][r]
-            print(len(distsTable[1]))
             for r in self.rest:
                 for c in self.cl:
-                    print(c.ID-1)
-                    print(r.ID-1)
                     distance = distsTable[r.ID-1][c.ID-1]
                     if distance > 0:
                         r.clients[c] = distance
                         c.restaurants[r] = distance
-
-
-            # for r in self.rest:
-            #     dtxt.append([])
-            #     for c in self.cl:
-            #         distance = random.randint(1, 20)
-            #         if distance <= r.max_distance:
-            #             r.clients[c] = distance
-            #             c.restaurants[r] = distance
-            #             dtxt[-1].append(distance)
-            #         else:
-            #             dtxt[-1].append(0)
-            # for c in dtxt:
-            #     print(c)
-            # with open('distsData.txt', 'a') as f:
-            #     for c in dtxt:
-            #         for i in c:
-            #             f.write(str(i)+"\t")
-            #         f.write("\n")
 
     def generate_workers(self, workers_number):
         self.workers = []

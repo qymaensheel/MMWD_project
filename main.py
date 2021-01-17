@@ -6,7 +6,7 @@ top1 = []
 top2 = []
 top3 = []
 alg_base = algorithm.Algorithm(clients_number=100, restaurants_number=50,
-                               mutation_probability=0.66, isDataProvided=True)
+                               mutation_probability=0.66, isDataProvided=False)
 
 # rozne liczby cykli
 # alg_base.generate_workers(96)
