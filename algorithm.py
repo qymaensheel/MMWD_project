@@ -6,28 +6,47 @@ from operator import attrgetter
 
 
 class Algorithm:
-    def __init__(self, clients_number, restaurants_number, mutation_probability):
+    def __init__(self, clients_number, restaurants_number, mutation_probability, isDataProvided=False):
         self.cl = []
         self.rest = []
         self.workers = []
         self.clients_number = clients_number
         self.restaurants_number = restaurants_number
-        self.mutation_probability=mutation_probability
+        self.mutation_probability = mutation_probability
         self.probability = []
         self.worst = []
         self.best = []
+        self.workers_number = 0
+        if not isDataProvided:
+            for i in range(restaurants_number):
+                self.rest.append(restaurant.Restaurant(5, 20, 5, 10))
+            for i in range(clients_number):
+                self.cl.append(client.Client(1, 5))
 
-        for i in range(restaurants_number):
-            self.rest.append(restaurant.Restaurant(5, 20, 5, 10))
-        for i in range(clients_number):
-            self.cl.append(client.Client(1, 5))
+            for r in self.rest:
+                for c in self.cl:
+                    distance = random.randint(1, 20)
+                    if distance <= r.max_distance:
+                        r.clients[c] = distance
+                        c.restaurants[r] = distance
+        else:
+            restsFile = open("restsData.txt")
+            restsString = restsFile.read().split("\n")
+            restsTable = []
+            for r in restsString:
+                restsTable.append(list(map(int, r.split("\t"))))
+            for r in restsTable:
+                self.rest.append(restaurant.Restaurant(r[0], r[1], r[2]))
+            restsFile.close()
 
-        for r in self.rest:
-            for c in self.cl:
-                distance = random.randint(1, 20)
-                if distance <= r.max_distance:
-                    r.clients[c] = distance
-                    c.restaurants[r] = distance
+            clientsFile = open("clientsData.txt")
+            clientsString = clientsFile.read().split("\n")
+            clientsTable = []
+            for c in clientsString:
+                clientsTable.append(list(map(int, c.split("\t"))))
+            for c in clientsTable:
+                self.cl.append(client.Client(c[0], c[1], True))
+            clientsFile.close()
 
     def generate_workers(self, workers_number):
         self.workers = []
@@ -67,16 +86,16 @@ class Algorithm:
             one_pair = []
             while len(one_pair)<2:
                 one_worker = random.choices(self.workers, self.probability, k=1)[0]
-                if (one_worker not in one_pair):
+                if one_worker not in one_pair:
                     one_pair.append(one_worker)
             pairs.append(one_pair)
 
-        for i in (pairs):
+        for i in pairs:
             conns = []
-            random_conns = random.sample(range(1,self.clients_number+1),self.clients_number//2)
+            random_conns = random.sample(range(1, self.clients_number+1), self.clients_number//2)
 
             mutation_choice = random.randint(0, 10)/100
-            if (mutation_choice<=self.mutation_probability):
+            if mutation_choice <= self.mutation_probability:
                 mutation_con = random_conns[-1]
                 random_conns.remove(random_conns[-1])
                 mutation_needs = self.cl[mutation_con-1].needs
@@ -93,12 +112,11 @@ class Algorithm:
                         conns.append(list([self.cl[mutation_con-1].ID, r.ID, d, n, n * r.cost]))
                         mutation_needs -= n
 
-
             for c in i[0].connections:
                 if c[0] in random_conns:
                     conns.append(c)
             for c in i[1].connections:
-                if c[0] not in random_conns and c[0]!=mutation_con:
+                if c[0] not in random_conns and c[0] != mutation_con:
                     conns.append(c)
             new_worker = worker.Worker(self.cl, self.rest, conns)
             new_worker.count()

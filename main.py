@@ -5,7 +5,8 @@ import algorithm
 top1 = []
 top2 = []
 top3 = []
-alg_base = algorithm.Algorithm(clients_number=100,restaurants_number=50, mutation_probability=0.66)
+alg_base = algorithm.Algorithm(clients_number=100, restaurants_number=50,
+                               mutation_probability=0.66, isDataProvided=False)
 
 # rozne liczby cykli
 # alg_base.generate_workers(96)
@@ -23,7 +24,7 @@ alg_base = algorithm.Algorithm(clients_number=100,restaurants_number=50, mutatio
 
 
 # rozne liczby populacji
-for i in range (5):
+for i in range(5):
     alg1 = copy.deepcopy(alg_base)
     alg1.generate_workers(96)
     alg1.genetic_alg(50)

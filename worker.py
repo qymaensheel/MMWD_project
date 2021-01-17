@@ -8,7 +8,7 @@ class Worker:
     occupied_ID = []
     highest_ID_given = 0
 
-    def __init__(self, cl_list, rest_list, conns_list=[]):  # added 3rd parameter as optional
+    def __init__(self, cl_list, rest_list, conns_list=[]):
         if not self.occupied_ID:
             self.ID = 1
         else:
@@ -16,7 +16,7 @@ class Worker:
         self.occupied_ID.append(self.ID)
         self.clients_list = cl_list.copy()
         self.restaurants_list = rest_list.copy()
-        self.connections = conns_list.copy()  #TODO conns_list
+        self.connections = conns_list.copy()
         self.cost_sum = 0
         self.distance_sum = 0
         self.quality = 0

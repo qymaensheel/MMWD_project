@@ -10,6 +10,12 @@ class Restaurant:
         else:
             self.ID = self.occupied_ID[-1] + 1
         self.occupied_ID.append(self.ID)
-        self.max_distance=random.randint(lower_distance, upper_distance)
+        self.max_distance = random.randint(lower_distance, upper_distance)
         self.cost = random.randint(lower_cost, upper_cost)
         self.clients = dict()
+
+    def __init__(self, id_, d_, c_):
+        self.ID = id_
+        self.occupied_ID.append(self.ID)
+        self.max_distance = d_
+        self.cost = c_
