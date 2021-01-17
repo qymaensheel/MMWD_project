@@ -17,6 +17,9 @@ class Algorithm:
         self.worst = []
         self.best = []
         self.workers_number = 0
+
+        dtxt = []
+
         if not isDataProvided:
             for i in range(restaurants_number):
                 self.rest.append(restaurant.Restaurant(lower_distance=5, upper_distance=20, lower_cost=5, upper_cost=10))
@@ -24,11 +27,23 @@ class Algorithm:
                 self.cl.append(client.Client(1, 5))
 
             for r in self.rest:
+                dtxt.append([])
                 for c in self.cl:
                     distance = random.randint(1, 20)
                     if distance <= r.max_distance:
                         r.clients[c] = distance
                         c.restaurants[r] = distance
+                        dtxt[-1].append(distance)
+                    else:
+                        dtxt[-1].append(0)
+            # for c in dtxt:
+            #     print(c)
+            # with open('distsData.txt', 'a') as f:
+            #     for c in dtxt:
+            #         for i in c:
+            #             f.write(str(i)+"\t")
+            #         f.write("\n")
+
         else:
             restsFile = open("restsData.txt")
             restsString = restsFile.read().split("\n")
@@ -48,12 +63,45 @@ class Algorithm:
                 self.cl.append(client.Client(c[0], c[1], True))
             clientsFile.close()
 
+            distsFile = open("distsData.txt")
+            distsString = distsFile.read().split("\n")
+            distsTable = []
+            for d in distsString:
+                l = list(map(int, d.split("\t")))
+                print(len(l))
+                distsTable.append(l)
+            for d in distsTable:
+                print(d)
+            distsFile.close()
+            # [c][r]
+            print(len(distsTable[1]))
             for r in self.rest:
                 for c in self.cl:
-                    distance = random.randint(1, 20)
-                    if distance <= r.max_distance:
+                    print(c.ID-1)
+                    print(r.ID-1)
+                    distance = distsTable[r.ID-1][c.ID-1]
+                    if distance > 0:
                         r.clients[c] = distance
                         c.restaurants[r] = distance
+
+
+            # for r in self.rest:
+            #     dtxt.append([])
+            #     for c in self.cl:
+            #         distance = random.randint(1, 20)
+            #         if distance <= r.max_distance:
+            #             r.clients[c] = distance
+            #             c.restaurants[r] = distance
+            #             dtxt[-1].append(distance)
+            #         else:
+            #             dtxt[-1].append(0)
+            # for c in dtxt:
+            #     print(c)
+            # with open('distsData.txt', 'a') as f:
+            #     for c in dtxt:
+            #         for i in c:
+            #             f.write(str(i)+"\t")
+            #         f.write("\n")
 
     def generate_workers(self, workers_number):
         self.workers = []
