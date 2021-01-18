@@ -63,9 +63,9 @@ def run(provided=False):
         alg10.genetic_alg(500)
         ctop10.append(alg10.best[-1])
 
-    plt.title("Cycles = 50")
-    plt.ylabel("quality")
-    plt.xlabel("random_cases")
+    plt.title("Liczba cykli = 50")
+    plt.ylabel("koszty")
+    plt.xlabel("losowe dane")
     plt.scatter(range(1, 6), ctop1)
     plt.show()
     plt.xticks(range(1, 6))
@@ -82,8 +82,8 @@ def run(provided=False):
     cmeans.append(numpy.mean(ctop10))
 
     plt.title("Średnia dla rosnącej liczby cykli")
-    plt.ylabel("quality")
-    plt.xlabel("cycles")
+    plt.ylabel("koszty")
+    plt.xlabel("liczba cykli")
     plt.scatter(cycles_count, cmeans)
     plt.xticks(cycles_count)
     plt.show()

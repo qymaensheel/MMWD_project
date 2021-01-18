@@ -81,17 +81,17 @@ def run(provided=False):
 
 
 
-    plt.title("Populacja = 33")
-    plt.ylabel("quality")
-    plt.xlabel("random_cases")
-    plt.scatter(range(1, 6), ptop1)
+    plt.title("Populacja = 96")
+    plt.ylabel("koszty")
+    plt.xlabel("losowe dane")
+    plt.scatter(range(1, 6), ptop3)
     plt.show()
     plt.xticks(range(1, 6))
 
 
     plt.title("Średnia dla rosnących populacji")
-    plt.ylabel("quality")
-    plt.xlabel("growing population")
+    plt.ylabel("koszty")
+    plt.xlabel("zwiekszajaca sie populacja")
     plt.scatter(workers_count, pmeans)
     plt.xticks(workers_count)
     plt.show()
