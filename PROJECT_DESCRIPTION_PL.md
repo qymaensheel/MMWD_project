@@ -1,4 +1,4 @@
-**# MMWD_covid_project**
+# MMWD_covid_project
 
 Zagadnienie dotyczy rozwiązania problemu dowozu żywienia do osób, które są na kwarantannie domowej. Każda restauracja dysponuje listą domów, które może obsłużyć, a także 
 ilością dostępnych posiłków. Ilość mieszkańców każdego domostwa determinuje zapotrzebowanie na posiłki oraz jest obsługiwane przez jedną firmę/może być obsługiwane przez 
