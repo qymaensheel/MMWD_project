@@ -1,11 +1,11 @@
-# MMWD_covid_project
+**# MMWD_covid_project**
 
 Zagadnienie dotyczy rozwiązania problemu dowozu żywienia do osób, które są na kwarantannie domowej. Każda restauracja dysponuje listą domów, które może obsłużyć, a także 
 ilością dostępnych posiłków. Ilość mieszkańców każdego domostwa determinuje zapotrzebowanie na posiłki oraz jest obsługiwane przez jedną firmę/może być obsługiwane przez 
 wiele firm. Dodatkowym parametrem jest odległość domów od restauracji. Chcemy zminimalizować sumę odległości między restauracjami a obsługiwanymi przez nie mieszkaniami 
 biorąc pod uwagę możliwości produkcyjne lokalów gastronomicznych.
 
-#Dane wejściowe:
+**Dane wejściowe:**
 
 Lista restauracji z informacjami:
   - możliwy zasięg dowozu 
@@ -15,7 +15,7 @@ Lista domów z informacjami:
   - lokalizacja
   - zapotrzebowanie na posiłki (porcje) 
 
-#Założenia:
+**Założenia:**
 
   - dom otrzymuję całe zapotrzebowanie od jednej restauracji lub może przyjąć dzielone porcję od kilku.
   - przepustowość restauracji dziennej jest stała
@@ -24,7 +24,7 @@ Lista domów z informacjami:
   - między mieszkaniem a restauracją jest jedna trasa 
 
 
-#Model matematyczny:
+**Model matematyczny:**
 
 Parametry:
   - R - zbiór restauracji serwujących posiłki
