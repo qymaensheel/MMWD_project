@@ -4,7 +4,8 @@ Zagadnienie dotyczy rozwiązania problemu dowozu żywienia do osób, które są 
 ilością dostępnych posiłków. Ilość mieszkańców każdego domostwa determinuje zapotrzebowanie na posiłki oraz jest obsługiwane przez jedną firmę/może być obsługiwane przez 
 wiele firm. Dodatkowym parametrem jest odległość domów od restauracji. Chcemy zminimalizować sumę odległości między restauracjami a obsługiwanymi przez nie mieszkaniami 
 biorąc pod uwagę możliwości produkcyjne lokalów gastronomicznych.
-Projekt realizowany w 3 osobowym zespole: Balibna Molerus, Tomasz Wojakowski, Bartosz Nieroda.
+
+Projekt realizowany w 3 osobowym zespole: Balbina Molerus, Tomasz Wojakowski, Bartosz Nieroda.
 
 **Dane wejściowe:**
 
